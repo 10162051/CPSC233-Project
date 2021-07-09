@@ -1,16 +1,25 @@
+/**
+ * 
+ * @author himarajesh
+ *
+ */
+
 public class Party {
 	private String name;
 	private float projectedNumberOfSeats;
 	private float projectedPercentageOfVotes;
-	
 	public Party(String partyName) {
 		name = partyName;
+		hi
 	}
-	
 	public Party(String partyName, float projectedNumberOfSeats, float projectedPercentageOfVotes) {
 		name = partyName;
-		this.projectedNumberOfSeats = projectedNumberOfSeats;
-		this.projectedPercentageOfVotes = projectedPercentageOfVotes;
+		if (projectedNumberOfSeats > 0) {
+			this.projectedNumberOfSeats = projectedNumberOfSeats;
+		}
+		if (projectedPercentageOfVotes >= 0 && projectedPercentageOfVotes <= 1){
+			this.projectedPercentageOfVotes = projectedPercentageOfVotes;
+		}
 	}
 	
 	public float getProjectedPercentageOfVotes() {
@@ -49,4 +58,4 @@ public class Party {
 	public String textVisualizationByVotes(int maxStars, int starsNeededForMajority, double percentOfVotesPerStar) {
 		return name + "(" + projectedNumberOfSeats + ", " + projectedPercentageOfVotes + "%)";
 	}
-}
+} 
