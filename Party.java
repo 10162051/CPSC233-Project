@@ -10,7 +10,6 @@ public class Party {
 	private float projectedPercentageOfVotes;
 	public Party(String partyName) {
 		name = partyName;
-		hi
 	}
 	public Party(String partyName, float projectedNumberOfSeats, float projectedPercentageOfVotes) {
 		name = partyName;
@@ -20,6 +19,7 @@ public class Party {
 		if (projectedPercentageOfVotes >= 0 && projectedPercentageOfVotes <= 1){
 			this.projectedPercentageOfVotes = projectedPercentageOfVotes;
 		}
+	
 	}
 	
 	public float getProjectedPercentageOfVotes() {
@@ -31,7 +31,9 @@ public class Party {
 	}
 	
 	public void setProjectedPercentageOfVotes(float projectedPercentageOfVotes) {
-		this.projectedPercentageOfVotes = projectedPercentageOfVotes;
+		if (projectedPercentageOfVotes >= 0 && projectedPercentageOfVotes <= 1) {
+			this.projectedPercentageOfVotes = projectedPercentageOfVotes;
+		}
 	}
 
 	public float getProjectedNumberOfSeats() {
@@ -39,23 +41,52 @@ public class Party {
 	}
 
 	public void setProjectedNumberOfSeats(float projectedNumberOfSeats) {
-		this.projectedNumberOfSeats = projectedNumberOfSeats;
+		if (projectedNumberOfSeats >= 0) {
+			this.projectedNumberOfSeats = projectedNumberOfSeats;
+		}
 	}
 
 	@Override
 	public String toString() {
-		return "";
+		int percentage = (int) (projectedPercentageOfVotes * 100);
+		return name +  " (" + percentage + "% of votes, " + projectedNumberOfSeats + " seats)";
 	}
 
 	public double projectedPercentOfSeats(int totalNumberOfSeats) {
-		return 0.0;
+		double percentOfSeats = projectedNumberOfSeats / totalNumberOfSeats;
+		if ( totalNumberOfSeats <= 0) {
+			return 0.0;
+		}
+		return percentOfSeats;
 	}
 	
 	public String textVisualizationBySeats(int maxStars, int starsNeededForMajority, double numOfSeatsPerStar) {
-		return name + "(" + projectedNumberOfSeats + ", " + projectedPercentageOfVotes + "%)";
-	}
+	    int percentage = (int) (projectedPercentageOfVotes * 100);
+	    int percentageRatio = (int)(projectedNumberOfSeats/numOfSeatsPerStar);
+	    String space = byBoth (maxStars,starsNeededForMajority,percentageRatio);
+		return space + " " + name +  " (" + percentage + "% of votes, " + projectedNumberOfSeats + " seats)";	}
 
 	public String textVisualizationByVotes(int maxStars, int starsNeededForMajority, double percentOfVotesPerStar) {
-		return name + "(" + projectedNumberOfSeats + ", " + projectedPercentageOfVotes + "%)";
+		int percentage = (int) (projectedPercentageOfVotes * 100);
+	    int percentageRatio = (int)(percentage/percentOfVotesPerStar);
+	    String space = byBoth (maxStars,starsNeededForMajority,percentageRatio);;
+		return space + " " + name +  " (" + percentage + "% of votes, " + projectedNumberOfSeats + " seats)";	}
+	
+	public String byBoth (int maxStars, int starsNeededForMajority, int percentageRatio) {
+		 String space = "";
+		    for (int i = 0; i <= maxStars; i++) {
+		    	 if (i == starsNeededForMajority) {
+		 	    	space+= "|";	
+		    }
+		    	 else if (percentageRatio > 0) {
+		    		 space+="*";
+		    		 percentageRatio -= 1;
+		    	 }
+		    	 else if (percentageRatio <= 0) {
+		    		 space+=" ";
+		    	 }
+		    }
+			return space;
 	}
-} 
+	}
+	
