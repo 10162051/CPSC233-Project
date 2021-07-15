@@ -81,6 +81,10 @@ public class Party {
 	
 	public String byBoth (int maxStars, int starsNeededForMajority, int percentageRatio) {
 		 String space = "";
+		/* the for loop will allow to iterate through values as long as it is below maxStars while also increasing
+		 value of i each time code is executed. As long as i below maxStars, the if and else if statements can be executed.These statements add the stars,
+		 space or bar based on the iteration of i.
+		  */
 		    for (int i = 0; i <= maxStars; i++) {
 		    	 if (i == starsNeededForMajority) {
 		 	    	space+= "|";	
