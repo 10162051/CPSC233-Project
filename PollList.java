@@ -84,7 +84,7 @@ public class PollList {
 			int index = 0;
 			float Totalnumberofseats = 0f;
 			float Totalpercentageofvotes = 0f;
-			Party NewParty = new Party(partyname);
+			Party NewParty = new Party(partyname);			
 	        for(index = 0; index <polls.length && polls[index].getParty(partyname) != null;index++) {
 	        	Party party = polls[index].getParty(partyname);
 	        	if(party == null) {
@@ -127,7 +127,6 @@ public class PollList {
             Aggregate.addParty(NewParty);
             
 		}
-		Aggregate.addParty(polls[0].getParty(partyNames[0]));
 		return Aggregate;
 	}
 	
