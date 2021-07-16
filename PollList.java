@@ -76,20 +76,58 @@ public class PollList {
 	
 	
 	
-	// This method using nested if statement in a for loop. 
-	//A private method is used to check if the party is actually in the Party[].
+	// This method using a for loop. 
 	public Poll getAggregatePoll(String[] partyNames) {
 		Poll Aggregate = new Poll("Aggregate",partyNames.length);
-		int index = 0;
-		Party party = new Party("name",3f,300f);
-		Aggregate.addParty(party);
-		for(; index < partyNames.length; index++) {
-			if(Ifapartyisin(partyNames[index],polls[index].getPartiesSortedBySeats())) {
-				Aggregate.addParty(polls[index].getPartiesSortedBySeats()[index]);
-			}
-			
-		}
+		for(String partyname:partyNames) {
+			int count = 0;
+			int index = 0;
+			float Totalnumberofseats = 0f;
+			float Totalpercentageofvotes = 0f;
+			Party NewParty = new Party(partyname);
+	        for(index = 0; index <polls.length && polls[index].getParty(partyname) != null;index++) {
+	        	Party party = polls[index].getParty(partyname);
+	        	if(party == null) {
+				    Totalnumberofseats += 0;
+	        	}
+	        	else {
+	        		Totalnumberofseats += party.getProjectedNumberOfSeats();
+				    count++;
+	        	}
 
+	        }
+	        if(count > 0) {
+	            NewParty.setProjectedNumberOfSeats((float)(Totalnumberofseats / count));
+	            count = 0;
+	        }
+	        
+	        
+	        
+	        for(Poll aPoll:polls) {
+
+	            if(aPoll.getParty(partyname) != null) {
+	            	Party party = aPoll.getParty(partyname);
+	            	    if(party == null) {
+	            		    Totalpercentageofvotes += 0;
+	    	        	}
+	    	        	else {
+	    	        		Totalpercentageofvotes += party.getProjectedPercentageOfVotes();
+	    				    count++;
+	    	        	}
+	    			
+		        		
+	            }
+	        }
+	        
+	        if(count > 0) {
+	            NewParty.setProjectedPercentageOfVotes((float)(Totalpercentageofvotes / count));
+	            count = 0;
+	        }
+	        
+            Aggregate.addParty(NewParty);
+            
+		}
+		Aggregate.addParty(polls[0].getParty(partyNames[0]));
 		return Aggregate;
 	}
 	
@@ -110,21 +148,23 @@ public class PollList {
 	 */
 	public Party getAveragePartyData(String partyName) {
 		int count = 0;
+		int index = 0;
 		float Totalnumberofseats = 0f;
 		float Totalpercentageofvotes = 0f;
 		Party NewParty = new Party(partyName);
-        for(Poll aPoll:polls) {
-            
-        	for(Party party:aPoll.getPartiesSortedBySeats()) {
-        		if(party != null && Ifapartyisin(partyName,aPoll.getPartiesSortedBySeats())) {
-        			Totalnumberofseats += party.getProjectedNumberOfSeats();
-        			count++;
-        			break;
-        		}
+        for(index = 0; index <polls.length && polls[index].getParty(partyName) != null;index++) {
+        	Party party = polls[index].getParty(partyName);
+        	if(party == null) {
+			    Totalnumberofseats += 0;
         	}
+        	else {
+        		Totalnumberofseats += party.getProjectedNumberOfSeats();
+			    count++;
+        	}	        		
+
         }
         if(count > 0) {
-            NewParty.setProjectedNumberOfSeats(Totalnumberofseats / count);
+            NewParty.setProjectedNumberOfSeats((float)(Totalnumberofseats / count));
             count = 0;
         }
         
@@ -132,16 +172,22 @@ public class PollList {
         
         for(Poll aPoll:polls) {
 
-        	for(Party party:aPoll.getPartiesSortedByVotes()) {
-        		if(party != null && NewParty.getName().equals(party.getName())) {
-        			Totalnumberofseats += party.getProjectedPercentageOfVotes();
-        			count++;
-        			break;
-        		}
-        	}
+            if(aPoll.getParty(partyName) != null) {
+            	Party party = aPoll.getParty(partyName);
+            	if(party == null) {
+        		    Totalpercentageofvotes += 0;
+	        	}
+	        	else {
+	        		Totalpercentageofvotes += party.getProjectedPercentageOfVotes();
+				    count++;
+	        	}
+    			
+	        		
+            }
         }
+        
         if(count > 0) {
-            NewParty.setProjectedPercentageOfVotes(Totalpercentageofvotes / count);
+            NewParty.setProjectedPercentageOfVotes((float)(Totalpercentageofvotes / count));
             count = 0;
         }
 		return NewParty;
