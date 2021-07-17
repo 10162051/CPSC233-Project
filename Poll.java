@@ -11,7 +11,7 @@ import java.util.Collections;
 public class Poll {
 	private String name = "Unnamed Poll";
 	private Party[] parties;
-	private int numberOfParties = 0;
+	private int numberOfParties = 1;
 	
 	//Create one constructor for the class that takes the name of the poll and the maximum number of 
 	//Parties this poll will take as an argument. The maximum number of parties should be at least 1. If an 
@@ -20,7 +20,9 @@ public class Poll {
 		this.name = name;
 		if(numberOfParties < 1)
 			this.numberOfParties = 10;
-		numberOfParties = this.numberOfParties;
+		else 
+			this.numberOfParties = numberOfParties;
+		this.parties = new Party[this.numberOfParties];
 	}
 	public Poll() {
 	}
@@ -38,10 +40,9 @@ public class Poll {
 	public void addParty(Party aParty) {
 		if (aParty == null) 
 			System.out.println("Error");
-		else if (aParty.equals(aParty))
-			System.out.println("Error");
 		else
-			parties[numberOfParties++] = aParty;
+			this.parties[this.numberOfParties - 1] = aParty;
+			this.numberOfParties--;
 	}
 
 	
