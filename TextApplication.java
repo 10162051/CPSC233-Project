@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class TextApplication {
 	//Constant
 	public static final int MAX_NUMBER_OF_STARS = 25;
@@ -33,7 +35,13 @@ public class TextApplication {
 	//display the string returned by that method.
 	//Get the list of sorted parties from Poll. Loop through the parties in the list to make
 	//the visualization.
-	public void displayPollDataBySeat(Poll aPoll) {
+	public static void displayPollDataBySeat(Poll aPoll) {
+		
+		int index = 0;
+		System.out.println(aPoll.getPollName());
+		for(; index < aPoll.getPartiesSortedBySeats().length ; index ++) {
+			System.out.println(aPoll.getPartiesSortedBySeats()[index].textVisualizationBySeats(MAX_NUMBER_OF_STARS,(int)(MAX_NUMBER_OF_STARS/2) , 10.0));
+		}
 		//? Party.textVisualizationBySeats(int maxStars, int starsNeededForMajority, double numOfSeatsPerStar);
 		// ? Poll.Party[] getPartiesSortedBySeats(); 
 	}
@@ -58,6 +66,15 @@ public class TextApplication {
 	//Instance :)
 		TextApplication app = new TextApplication(null);
 		app.run();
-		
+		Party party1 = new Party("one");
+		Party party2 = new Party("two");
+		Party party3 = new Party("three");
+		Poll poll1 = new Poll("poll one",3);
+		poll1.addParty(party1);
+		poll1.addParty(party2);
+		poll1.addParty(party3);
+		PollList polllist1 = new PollList(1,10);
+		app.polls = polllist1;
+		displayPollDataBySeat(app.getPolls().getPolls()[0]);
 	}
 }
