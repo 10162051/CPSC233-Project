@@ -59,11 +59,19 @@ public class Poll {
 	//name. If no party of that name exists in the poll this method should return null.
 	//?parties[i].getName()==nameParty
 	//?return parties[i].getName()
-	public Party getParty(String name) {	
-		if (name == null) 
-			return null;
-		else 
-			return getParty(name);
+	/**
+	 * 
+	 * @author This method is edited by Shaohuan Xia
+	 * 
+	 */
+	public Party getParty(String name) {
+		Party TheParty = new Party("default");
+        for(Party party:parties) {
+        	if(party.getName() == name) {
+        		TheParty = party;
+        	}
+        }
+        return TheParty;
 	}
 	
 	
