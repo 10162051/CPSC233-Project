@@ -28,10 +28,12 @@ public class TextApplication {
 	
 
 	//returns nothing. Array of strings are the names of parties. Pass each Poll in the polls instance
-	//variable as an arg to displayPollDataBySeat.
-	//Call getAggregatedPoll (in PollList) of the polls instance variable and display it too
+	//Call displayPollsBySeat(String[] partyNames) of the polls and display it too
 	public void displayPollsBySeat(String[] partyNames) {
-		//? PollList.getAggregatedPoll.poll();
+		for(Poll aPoll:polls.getPolls()) {
+			displayPollDataBySeat(aPoll);
+		}
+		displayPollDataBySeat(polls.getAggregatePoll(partyNames));
 	}
 	
 	
@@ -46,7 +48,7 @@ public class TextApplication {
 	//display the string returned by that method.
 	//Get the list of sorted parties from Poll. Loop through the parties in the list to make
 	//the visualization.
-	public static void displayPollDataBySeat(Poll aPoll) {
+	public void displayPollDataBySeat(Poll aPoll) {
 		
 		int index = 0;
 		System.out.println(aPoll.getPollName());
@@ -77,7 +79,11 @@ public class TextApplication {
 	//Instance :)
 		TextApplication app = new TextApplication(null);
 		app.run();
-        Poll aPoll = Factory.createRandomPoll("name");
+        Poll aPoll = new Poll("name",1);
+        aPoll.createRandomPoll("name");
 		displayPollDataBySeat(aPoll);
 	}
 }
+
+
+    
