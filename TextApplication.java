@@ -1,3 +1,14 @@
+/**
+ * @author Shaohuan Xia
+ * @author Hima Rajesh
+ * @author Carlene Kalin
+ */
+
+
+
+
+
+
 import java.util.ArrayList;
 
 public class TextApplication {
@@ -66,15 +77,7 @@ public class TextApplication {
 	//Instance :)
 		TextApplication app = new TextApplication(null);
 		app.run();
-		Party party1 = new Party("one");
-		Party party2 = new Party("two");
-		Party party3 = new Party("three");
-		Poll poll1 = new Poll("poll one",3);
-		poll1.addParty(party1);
-		poll1.addParty(party2);
-		poll1.addParty(party3);
-		PollList polllist1 = new PollList(1,10);
-		app.polls = polllist1;
-		displayPollDataBySeat(app.getPolls().getPolls()[0]);
+        Poll aPoll = Factory.createRandomPoll("name");
+		displayPollDataBySeat(aPoll);
 	}
 }
