@@ -10,6 +10,7 @@
 
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TextApplication {
 	//Constant
@@ -68,6 +69,52 @@ public class TextApplication {
 	//Ask user which visualization they want or they can quit any time.
 	public void run() {
 		//Factory.PollList createRandomPollList(int numOfPolls);
+		Scanner kb = new Scanner(System.in);
+		int infinite = 0;
+		System.out.println("Welcome to the poll tracker");
+		System.out.println("**********Group5 presents**********");
+		System.out.print("How many seats are available in the election?");
+		int NumberOfSeats = kb.nextInt();
+		Factory f = new Factory(NumberOfSeats);
+		System.out.print("Which parties are in the election (provide names, comma separated):");
+		kb = new Scanner(System.in);
+		String parties = kb.nextLine();
+		String[] Parties = parties.split(",");
+		f.setPartyNames(Parties);
+		System.out.print("How many polls do you want to track with this application?");
+		kb = new Scanner(System.in);
+		int NumberOfPolls = kb.nextInt();
+		System.out.print("Would you like me to create a random setof polls?");
+		kb = new Scanner(System.in);
+		String YesOrNo = kb.next();
+		String Yes = "yes";
+		if(YesOrNo.equalsIgnoreCase(Yes)) {
+			f.createRandomPollList(NumberOfPolls);
+			System.out.println("Added!");
+		}
+		while(infinite == 0) {
+			System.out.println("----------Options----------\nall (show result of all polls)\naggregate (show aggregate result)\nquit (end application)");
+			System.out.print("Choose an option:");
+			kb = new Scanner(System.in);
+			String TheOption = kb.nextLine();
+			if(TheOption.equalsIgnoreCase("all")) {
+				polls = f.promptForPollList(NumberOfPolls);
+				displayPollsBySeat(Parties);
+			}
+			else if(TheOption.equalsIgnoreCase("aggregate")) {
+				displayPollDataBySeat(polls.getAggregatePoll(Parties));
+			}
+			else if(TheOption.equalsIgnoreCase("quit")) {
+				System.out.println("Thanks to:Shaohuan, Carlene and Hima. ");
+				System.out.println("Thanks for using this software designed by Group5, see you soon!");
+				infinite = 1;
+			}
+			else {
+				System.out.println("That is not the correct keyword, please type again!");
+			}
+		}
+		
+		
 	}
 	
 	//Getter for polls
@@ -79,9 +126,6 @@ public class TextApplication {
 	//Instance :)
 		TextApplication app = new TextApplication(null);
 		app.run();
-        Poll aPoll = new Poll("name",1);
-        aPoll.createRandomPoll("name");
-		displayPollDataBySeat(aPoll);
 	}
 }
 
