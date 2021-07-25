@@ -13,11 +13,17 @@ public class Party {
 	}
 	public Party(String partyName, float projectedNumberOfSeats, float projectedPercentageOfVotes) {
 		name = partyName;
-		// code below restricts the projectedNumberOfSeats to being above zero( non negative value). If so, the entered value can equal the variable.
+		/**
+		 *  code below restricts the projectedNumberOfSeats to being above zero( non negative value). 
+		 *  If so, the entered value can equal the variable.
+		 */
 		if (projectedNumberOfSeats > 0) {
 			this.projectedNumberOfSeats = projectedNumberOfSeats;
 		}
-		// code below restricts the projectedPercentageofVotes to being above  or equal to zero and less than or equal to one. If so, the entered value can equal the variable.
+		/**
+		 *  code below restricts the projectedPercentageofVotes to being above  or equal to zero and less than or equal to one. 
+		 *  If so, the entered value can equal the variable.
+		 */
 		if (projectedPercentageOfVotes >= 0 && projectedPercentageOfVotes <= 1){
 			this.projectedPercentageOfVotes = projectedPercentageOfVotes;
 		}
@@ -33,7 +39,9 @@ public class Party {
 	}
 	
 	public void setProjectedPercentageOfVotes(float projectedPercentageOfVotes) {
-		// ensures the value falls between and including zero and one.
+		/**
+		 *  ensures the value falls between and including zero and one.
+		 */
 		if (projectedPercentageOfVotes >= 0 && projectedPercentageOfVotes <= 1) {
 			this.projectedPercentageOfVotes = projectedPercentageOfVotes;
 		}
@@ -64,24 +72,32 @@ public class Party {
 	}
 	
 	public String textVisualizationBySeats(int maxStars, int starsNeededForMajority, double numOfSeatsPerStar) {
-	// converts the projectedPercentageOfVotes to a percentage.
+	/**
+	 *  converts the projectedPercentageOfVotes to a percentage.
+	 */
 	    int percentage = (int) (projectedPercentageOfVotes * 100);
-	// determines the amount of stars based on the projectedNumberOfSeats.
+	/**
+	 *  determines the amount of stars based on the projectedNumberOfSeats.
+	 */
 	    int percentageRatio = (int)(projectedNumberOfSeats/numOfSeatsPerStar);
-	 //Utilizes the byBoth method to execute the printing of stars based on their percentageRatio(which are different for both methods)
+	 /**
+	  * Utilizes the byBoth method to execute the printing of stars based on their percentageRatio(which are different for both methods)
+	  */
 	    String space = byBoth (maxStars,starsNeededForMajority,percentageRatio);
 		return space + " " + name +  " (" + percentage + "% of votes, " + projectedNumberOfSeats + " seats)";	}
 
 	public String textVisualizationByVotes(int maxStars, int starsNeededForMajority, double percentOfVotesPerStar) {
 	    int percentage = (int) (projectedPercentageOfVotes * 100);
-	// determines the amount stars that needs to be printed based on the percentage of votes received and how many of those votes go in one star.
+	/**
+	 *  determines the amount stars that needs to be printed based on the percentage of votes received and how many of those votes go in one star.
+	 */
 	    int percentageRatio = (int)(percentage/percentOfVotesPerStar);
 	    String space = byBoth (maxStars,starsNeededForMajority,percentageRatio);;
 		return space + " " + name +  " (" + percentage + "% of votes, " + projectedNumberOfSeats + " seats)";	}
 	
 	public String byBoth (int maxStars, int starsNeededForMajority, int percentageRatio) {
 		 String space = "";
-		/* the for loop will allow to iterate through values as long as it is below maxStars while also increasing
+		/** the for loop will allow to iterate through values as long as it is below maxStars while also increasing
 		 value of i each time code is executed. As long as i below maxStars, the if and else if statements can be executed.These statements add the stars,
 		 space or bar based on the iteration of i.
 		  */
