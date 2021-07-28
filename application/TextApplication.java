@@ -1,3 +1,5 @@
+package application
+import model.*;
 /**
  * @author Shaohuan Xia
  * @author Hima Rajesh
