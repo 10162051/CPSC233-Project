@@ -1,4 +1,4 @@
-package application
+package application;
 import model.*;
 /**
  * @author Shaohuan Xia
