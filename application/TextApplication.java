@@ -77,7 +77,8 @@ public class TextApplication {
 		System.out.println("**********Group5 presents**********");
 		System.out.print("How many seats are available in the election?");
 		int NumberOfSeats = kb.nextInt();
-		Factory f = new Factory(NumberOfSeats);
+		Factory f = null;
+		
 		System.out.print("Which parties are in the election (provide names, comma separated):");
 		kb = new Scanner(System.in);
 		String parties = kb.nextLine();
