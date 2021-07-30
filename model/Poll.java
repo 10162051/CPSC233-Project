@@ -12,7 +12,7 @@ import java.util.Collections;
 public class Poll {
 	private String name = "Unnamed Poll";
 	private Party[] parties;
-	private int numberOfParties = 1;
+	private int numberOfParties;
 	
 	//Create one constructor for the class that takes the name of the poll and the maximum number of 
 	//Parties this poll will take as an argument. The maximum number of parties should be at least 1. If an 
@@ -39,11 +39,25 @@ public class Poll {
 	//message that the poll is full and no further parties can be added. Do NOT increment 
 	//partiesInPoll in this case.
 	public void addParty(Party aParty) {
-		if (aParty == null) 
-			System.out.println("Error");
-		else
-			this.parties[this.numberOfParties - 1] = aParty;
-			this.numberOfParties--;
+	    int index = 0;
+	    if(aParty != null) {
+		    for (index = 0; index < parties.length && parties[index] != null; index++) {	
+			    if(aParty.getName().equalsIgnoreCase(parties[index].getName())) {
+				    parties[index] = aParty;
+			    }
+		    }
+		    if(index >= parties.length) {
+			    System.out.println("Error. Poll is full.");
+		    }
+		    else {
+		    	for (index = 0; index < parties.length; index++) {
+		    		if(parties[index] == null) {
+		    			parties[index] = aParty;
+		    			break;
+		    		}
+		    	}
+		    }
+	    }
 	}
 
 	
@@ -106,14 +120,14 @@ public class Poll {
 	@Override
 	public String toString() {
 		return String.format( name + ".%n " + parties + ".%n ");
-					//‘<name> <newline> 
+					//â€˜<name> <newline> 
 				   //<string representation of first party> <newline>
-				   //<string representation of second party><newline>...’
+				   //<string representation of second party><newline>...â€™
 	}
 }
 
 //Recall that the creation of an array of objects will fill the array with null values. When looping through 
 //the array of Party objects, make sure you check if the party is null or not. Make sure to handle null 
-//values appropriately. Sometimes a null value means ‘do nothing’. Other times it means an error. If an 
+//values appropriately. Sometimes a null value means â€˜do nothingâ€™. Other times it means an error. If an 
 //error is encountered, print an error message. Do NOT end the program. Instead allow the program to 
 //continue running as if no error had occurred. A later iteration will manage errors better
