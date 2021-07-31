@@ -104,8 +104,17 @@ public class EditPollController {
     		
     		public void changed(ObservableValue va, Number oldvalue, Number newvalue) {
     		    int index = newvalue.intValue();
-    		    polls.getPolls()[index].setPollName(pollname);
-    		    EditChoiceBox.set
+    		    if(index >= 0 && index <= 5) {
+    		    	polls.getPolls()[index].setPollName(pollname);
+    		    	int index2 = 0;
+    		        String[] pollsname = new String[polls.getPolls().length];
+    		        for(; index2 < polls.getPolls().length; index2++) {
+    		        	pollsname[index2] = polls.getPolls()[index2].getPollName();
+    		        }
+    		        
+    		        EditChoiceBox.setItems(FXCollections.observableArrayList(pollsname));
+    		    }
+    		    
     		}
     		    
     	}
@@ -170,6 +179,12 @@ public class EditPollController {
         }
         
         EditChoiceBox.setItems(FXCollections.observableArrayList(pollsname));
+        index = 0;
+        String[] partiesname = new String[polls.getPolls()[0].getPartiesSortedBySeats().length];
+        for(; index < polls.getPolls()[0].getPartiesSortedBySeats().length; index++) {
+        	partiesname[index] = polls.getPolls()[0].getPartiesSortedBySeats()[index].getName();
+        }
+        PartyToUpdateChoiceBox.setItems(FXCollections.observableArrayList(partiesname));
     }
 }
 
