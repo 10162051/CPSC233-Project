@@ -110,10 +110,16 @@ public class Poll {
 				   //<string representation of first party> <newline>
 				   //<string representation of second party><newline>...’
 	}
-}
+
 
 //Recall that the creation of an array of objects will fill the array with null values. When looping through 
 //the array of Party objects, make sure you check if the party is null or not. Make sure to handle null 
 //values appropriately. Sometimes a null value means ‘do nothing’. Other times it means an error. If an 
 //error is encountered, print an error message. Do NOT end the program. Instead allow the program to 
 //continue running as if no error had occurred. A later iteration will manage errors better
+
+    public void setPollName(String PollName) {
+    	this.name = PollName;
+    }
+    
+}

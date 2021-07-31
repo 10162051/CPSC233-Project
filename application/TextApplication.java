@@ -78,7 +78,8 @@ public class TextApplication {
 		System.out.print("How many seats are available in the election?");
 		int NumberOfSeats = kb.nextInt();
 		Factory f = null;
-		
+		f.getInstance();
+		f.createEmptyPolls();
 		System.out.print("Which parties are in the election (provide names, comma separated):");
 		kb = new Scanner(System.in);
 		String parties = kb.nextLine();

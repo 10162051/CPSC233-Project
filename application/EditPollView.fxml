@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="Pane" prefHeight="426.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="Pane" prefHeight="426.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditPollController">
    <top>
       <HBox fx:id="Hbox1" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -21,12 +21,12 @@
          <children>
             <HBox fx:id="Hbox2" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="UpdatePollNameText" alignment="CENTER">
+                  <TextField fx:id="UpdatePollNameText" alignment="CENTER" onKeyTyped="#ReactToTypingPoll">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="UpdatePollNameButton" alignment="CENTER" mnemonicParsing="false" text="Update Poll Name" />
+                  <Button fx:id="UpdatePollNameButton" alignment="CENTER" mnemonicParsing="false" onAction="#ReactToButtonClickPoll" text="Update Poll Name" />
                </children>
             </HBox>
             <HBox fx:id="Hbox3" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -38,25 +38,25 @@
             <HBox fx:id="Hbox4" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label fx:id="ProjectedNumberOfSeat" text="Projected number of seats: " />
-                  <TextField fx:id="ProjectedNumberOfSeatText" />
+                  <TextField fx:id="ProjectedNumberOfSeatText" onKeyTyped="#ReactToTypingSeats" />
                   <Label fx:id="per290" text="/290" />
                </children>
             </HBox>
             <HBox fx:id="Hbox5" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label fx:id="ProjectedPercentageOfTheVote" text="Projected percentage of the vote:" />
-                  <TextField fx:id="ProjectedPercentageOfTheVoteText" />
+                  <TextField fx:id="ProjectedPercentageOfTheVoteText" onKeyTyped="#ReactToTypingVote" />
                   <Label fx:id="PercentageMark" text="\%" />
                </children>
             </HBox>
             <HBox fx:id="Hbox6" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="ClearButton" mnemonicParsing="false" text="Clear">
+                  <Button fx:id="ClearButton" mnemonicParsing="false" onAction="#ReactToButtonClickClear" text="Clear">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="UpdatePartyButton" mnemonicParsing="false" text="Update Party">
+                  <Button fx:id="UpdatePartyButton" mnemonicParsing="false" onAction="#ReactToButtonClickParty" text="Update Party">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>
