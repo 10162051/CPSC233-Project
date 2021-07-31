@@ -1,13 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<BorderPane fx:id="Pane" prefHeight="426.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox fx:id="Hbox1" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="PollToEdit" text="Poll to Edit: " />
+            <ChoiceBox fx:id="EditChoiceBox" prefWidth="150.0" />
+         </children>
+      </HBox>
+   </top>
    <center>
-      <Label text="Label" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="Hbox2" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="UpdatePollNameText" alignment="CENTER">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="UpdatePollNameButton" alignment="CENTER" mnemonicParsing="false" text="Update Poll Name" />
+               </children>
+            </HBox>
+            <HBox fx:id="Hbox3" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="PartyToUpdate" text="party to update: " />
+                  <ChoiceBox fx:id="PartyToUpdateChoiceBox" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox fx:id="Hbox4" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="ProjectedNumberOfSeat" text="Projected number of seats: " />
+                  <TextField fx:id="ProjectedNumberOfSeatText" />
+                  <Label fx:id="per290" text="/290" />
+               </children>
+            </HBox>
+            <HBox fx:id="Hbox5" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="ProjectedPercentageOfTheVote" text="Projected percentage of the vote:" />
+                  <TextField fx:id="ProjectedPercentageOfTheVoteText" />
+                  <Label fx:id="PercentageMark" text="\%" />
+               </children>
+            </HBox>
+            <HBox fx:id="Hbox6" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="ClearButton" mnemonicParsing="false" text="Clear">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="UpdatePartyButton" mnemonicParsing="false" text="Update Party">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </center>
 </BorderPane>
