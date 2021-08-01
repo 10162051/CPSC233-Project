@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.setupController">
+<StackPane prefHeight="356.0" prefWidth="384.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.setupController">
    <children>
    	<AnchorPane fx:id="firstScreen" prefHeight="347.0" prefWidth="373.0">
       <children>
-            <Label layoutX="76.0" layoutY="31.0" text="Setup Poll Tracker  ">
+            <Label layoutX="76.0" layoutY="32.0" text="Setup Poll Tracker  ">
                <font>
                   <Font size="24.0" />
                </font>
@@ -21,7 +21,7 @@
             <TextField fx:id="numSeats" layoutX="198.0" layoutY="90.0" />
             <Label layoutX="83.0" layoutY="130.0" prefHeight="72.0" prefWidth="154.0" text="Number of  parties:">
             </Label>
-            <TextField fx:id="numofParties" layoutX="198.0" layoutY="152.0" />
+            <TextField fx:id="numofParties" layoutX="198.0" layoutY="153.0" />
             <Label layoutX="104.0" layoutY="216.0" text="Number of polls:" />
             <TextField fx:id="numPolls" layoutX="198.0" layoutY="211.0" />
             <Button fx:id="resetbutton" layoutX="22.0" layoutY="306.0" mnemonicParsing="false" onAction="#resetButtonClicked" text="Resert" />
@@ -30,13 +30,7 @@
    </AnchorPane>
       <AnchorPane fx:id="secondScreen" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
-            <TextField layoutX="198.0" layoutY="199.0" />
-            <TextField layoutX="198.0" layoutY="147.0" />
-            <TextField layoutX="198.0" layoutY="102.0" />
-            <Button layoutX="31.0" layoutY="55.0" mnemonicParsing="false" text="Submit Party Names" />
-            <Label layoutX="81.0" layoutY="204.0" text="Name of Party:" />
-            <Label layoutX="81.0" layoutY="152.0" text="Name of Party:" />
-            <Label layoutX="81.0" layoutY="107.0" text="Name of Party:" />
+            <Button fx:id="submitPartyNames" layoutX="31.0" layoutY="55.0" mnemonicParsing="false" onAction="#submitPartyNames" text="Submit Party Names" />   
          </children>
       </AnchorPane>
    </children>
