@@ -48,6 +48,7 @@ public class Poll {
 		    }
 		    if(index >= parties.length) {
 			    System.out.println("Error. Poll is full.");
+			    
 		    }
 		    else {
 		    	for (index = 0; index < parties.length; index++) {
@@ -68,6 +69,11 @@ public class Poll {
 	//Getter Method for numberOfParties
 	public int getNumberOfParties() {
 		return numberOfParties;
+	}
+	
+	//Added setter to use in Controller
+	public void setPollName(String PollName) {
+		this.name = PollName;
 	}
 	
 	//getParty which takes the name of the party to find and returns the party in the poll with that 
