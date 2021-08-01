@@ -12,7 +12,7 @@
       <HBox fx:id="Hbox1" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="PollToEdit" text="Poll to Edit: " />
-            <ChoiceBox fx:id="EditChoiceBox" prefWidth="150.0" />
+            <ChoiceBox fx:id="EditChoiceBox" prefWidth="150.0" onAction="#ReactToChoiceboxEdit"/>
          </children>
       </HBox>
    </top>
@@ -32,7 +32,7 @@
             <HBox fx:id="Hbox3" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label fx:id="PartyToUpdate" text="party to update: " />
-                  <ChoiceBox fx:id="PartyToUpdateChoiceBox" prefWidth="150.0" />
+                  <ChoiceBox fx:id="PartyToUpdateChoiceBox" prefWidth="150.0" onAction="#ReactToChoiceboxParty"/>
                </children>
             </HBox>
             <HBox fx:id="Hbox4" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">

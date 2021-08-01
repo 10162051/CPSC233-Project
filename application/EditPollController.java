@@ -17,7 +17,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import model.Factory;
+import model.Poll;
 import model.PollList;
+import model.Party;
 
 public class EditPollController {
     private PollList polls;
@@ -99,33 +101,21 @@ public class EditPollController {
 
     @FXML
     void ReactToButtonClickPoll(ActionEvent event) {
-    	String pollname = UpdatePollNameText.getText();
-    	EditChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-    		
-    		public void changed(ObservableValue va, Number oldvalue, Number newvalue) {
-    		    int index = newvalue.intValue();
-    		    if(index >= 0 && index <= 5) {
-    		    	polls.getPolls()[index].setPollName(pollname);
-    		    	int index2 = 0;
-    		        String[] pollsname = new String[polls.getPolls().length];
-    		        for(; index2 < polls.getPolls().length; index2++) {
-    		        	pollsname[index2] = polls.getPolls()[index2].getPollName();
-    		        }
-    		        
-    		        EditChoiceBox.setItems(FXCollections.observableArrayList(pollsname));
-    		    }
-    		    
-    		}
-    		    
-    	}
-    	);
-
-			
-    		
-    	
+    	ChangePollData();			   		
               
     }
-
+    
+    @FXML
+    void ReactToChoiceboxParty(ActionEvent event) {
+    	
+    }
+    
+    @FXML
+    void ReactToChoiceboxEdit(ActionEvent event) {
+    	SwitchParties();
+    	
+    }
+    
     @FXML
     void ReactToTypingSeats(KeyEvent event) {
  
@@ -138,12 +128,14 @@ public class EditPollController {
 
     @FXML
     void ReactToButtonClickClear(ActionEvent event) {
-
+    	ProjectedNumberOfSeatText.clear();
+    	ProjectedPercentageOfTheVoteText.clear();
+    	UpdatePollNameText.clear();
     }
 
     @FXML
     void ReactToButtonClickParty(ActionEvent event) {
-
+    	setPartyData();
     }
 
     @FXML
@@ -179,12 +171,106 @@ public class EditPollController {
         }
         
         EditChoiceBox.setItems(FXCollections.observableArrayList(pollsname));
-        index = 0;
+
+        
         String[] partiesname = new String[polls.getPolls()[0].getPartiesSortedBySeats().length];
-        for(; index < polls.getPolls()[0].getPartiesSortedBySeats().length; index++) {
-        	partiesname[index] = polls.getPolls()[0].getPartiesSortedBySeats()[index].getName();
+		int index2 = 0;
+        for(; index2 < polls.getPolls()[0].getPartiesSortedBySeats().length; index2++) {
+        	partiesname[index2] = polls.getPolls()[0].getPartiesSortedBySeats()[index2].getName() + "  " + polls.getPolls()[0].getPartiesSortedBySeats()[index2].getProjectedNumberOfSeats() + " Projected Number Of Seats  " + polls.getPolls()[0].getPartiesSortedBySeats()[index2].getProjectedPercentageOfVotes() + "% of votes";
         }
+        
         PartyToUpdateChoiceBox.setItems(FXCollections.observableArrayList(partiesname));
+    }
+    
+    
+    private void ChangePollData() {
+    	String pollname = UpdatePollNameText.getText();
+    	EditChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+    		
+    		public void changed(ObservableValue va, Number oldvalue, Number newvalue) {
+    		    int index = oldvalue.intValue();
+    		    if(index >= 0) {
+    		    	polls.getPolls()[index].setPollName(pollname);
+    		    	int index2 = 0;
+    		        String[] pollsname = new String[polls.getPolls().length];
+    		        for(; index2 < polls.getPolls().length; index2++) {
+    		        	pollsname[index2] = polls.getPolls()[index2].getPollName();
+    		        }
+    		        EditChoiceBox.setItems(FXCollections.observableArrayList(pollsname));
+    		        index2 = 0;
+    		    }
+    		    
+    		}
+    		    
+    	}
+    	);
+    }
+    
+    
+    
+    private void SwitchParties() {
+        EditChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+    		
+    		public void changed(ObservableValue va, Number oldvalue, Number newvalue) {
+    			if(newvalue.intValue() >= 0) {
+    				int index = newvalue.intValue();
+    				int index2 = 0;
+    				String[] partiesname = new String[polls.getPolls()[index].getPartiesSortedBySeats().length];
+        	        for(; index2 < polls.getPolls()[index].getPartiesSortedBySeats().length; index2++) {
+        	        	partiesname[index2] = polls.getPolls()[index].getPartiesSortedBySeats()[index2].getName() + "  " + polls.getPolls()[index].getPartiesSortedBySeats()[index2].getProjectedNumberOfSeats() + " Projected Number Of Seats  " + polls.getPolls()[index].getPartiesSortedBySeats()[index2].getProjectedPercentageOfVotes() + "% of votes";
+        	        }
+        	        
+        	        PartyToUpdateChoiceBox.setItems(FXCollections.observableArrayList(partiesname));
+        	        index2 = 0;
+    			}
+    			else {
+    				String[] partiesname = new String[polls.getPolls()[0].getPartiesSortedBySeats().length];
+    				int index = 0;
+        	        for(; index < polls.getPolls()[0].getPartiesSortedBySeats().length; index++) {
+        	        	partiesname[index] = polls.getPolls()[0].getPartiesSortedBySeats()[index].getName() + "  " + polls.getPolls()[0].getPartiesSortedBySeats()[index].getProjectedNumberOfSeats() + " Projected Number Of Seats  " + polls.getPolls()[0].getPartiesSortedBySeats()[index].getProjectedPercentageOfVotes() + "% of votes";
+        	        }
+        	        
+        	        PartyToUpdateChoiceBox.setItems(FXCollections.observableArrayList(partiesname));
+
+    			}
+    		    
+    		}
+    		    
+    		
+    		    
+    	}
+    	);
+    }
+    
+    
+    private void setPartyData() {
+    	PartyToUpdateChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+    		
+    		public void changed(ObservableValue va, Number oldvalue, Number newvalue) {
+    			if(newvalue.intValue() >= 0) {
+    				int index = newvalue.intValue();
+    				int index2 = 0;
+    				String[] partiesname = new String[polls.getPolls()[index].getPartiesSortedBySeats().length];
+    				float ProjectedNumberOfSeat = Float.parseFloat(ProjectedNumberOfSeatText.getText());
+    				float ProjectedPercentageOfTheVote = Float.parseFloat(ProjectedPercentageOfTheVoteText.getText());
+    				for(; index2 < polls.getPolls()[index].getPartiesSortedBySeats().length; index2++) {
+    					polls.getPolls()[index].getPartiesSortedBySeats()[index2].setProjectedNumberOfSeats(ProjectedNumberOfSeat);
+    					polls.getPolls()[index].getPartiesSortedByVotes()[index2].setProjectedPercentageOfVotes(ProjectedPercentageOfTheVote);
+    				}
+        	        for(; index2 < polls.getPolls()[index].getPartiesSortedBySeats().length; index2++) {
+        	        	partiesname[index2] = polls.getPolls()[index].getPartiesSortedBySeats()[index2].getName() + "  " + polls.getPolls()[index].getPartiesSortedBySeats()[index2].getProjectedNumberOfSeats() + " Projected Number Of Seats  " + polls.getPolls()[index].getPartiesSortedBySeats()[index2].getProjectedPercentageOfVotes() + "% of votes";
+        	        }
+        	        
+        	        PartyToUpdateChoiceBox.setItems(FXCollections.observableArrayList(partiesname));
+        	        index2 = 0;
+    			}
+    		    
+    		}
+    		    
+    		
+    		    
+    	}
+    	);
     }
 }
 
