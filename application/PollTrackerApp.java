@@ -1,3 +1,7 @@
+/**
+ * @author Shaohuan Xia
+ */
+
 package application;
 	
 import java.io.FileInputStream;
@@ -9,7 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
 
-public class Main extends Application {
+public class PollTrackerApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
