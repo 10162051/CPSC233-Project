@@ -1,6 +1,7 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.event.ActionEvent;
@@ -32,29 +33,36 @@ public class setupController {
 	@FXML
 	private Button resetbutton;
 	
-	private ArrayList<String> names = new ArrayList();
 	private ArrayList<TextField> textfields = new ArrayList();
 	@FXML
 	public void submitButtonClicked(ActionEvent event) {
+		/**
+		 * converts textfield values to integer and calls setNumofSeats method to update value
+		 * Factory
+		 */
 		int numberofseats=Integer.parseInt(numSeats.getText());
 		Factory.getInstance().setNumOfSeats(numberofseats);
+		/**
+		 * converts textfield values to integer and calls setNumofPolls method to update value
+		 * Factory
+		 */
 		int numberofpolls=Integer.parseInt(numPolls.getText());
 		Factory.getInstance().setNumOfPolls(numberofpolls);
-		/*System.out.println(Factory.getInstance().toString());*/
+		/**
+		 * once values are updated in Factory, First screen vanish and displays second screen to enter 
+		 * party names. 
+		 */
 		firstScreen.setVisible(false);
 		secondScreen.setVisible(true);
 		int numberofparties=Integer.parseInt(numofParties.getText());
 		ArrayList<HBox> hboxes = new ArrayList();
+		/**
+		 * loops through and adds Hbox with the label "Name of Party" and partynames. 
+		 */
 		for (int i = 0; i < numberofparties; i++){
 			TextField partynames = new TextField();
 			HBox hbox = new HBox(new Label("Name of Party"),partynames);
 			hbox.setLayoutY(120 + (i*20));
-			/*if ( i == 0) {
-				hbox.setPadding(new Insets(15,12,15,12));
-			}
-			else {
-				hbox.setPadding(new Insets(5,12,15,12));
-			}*/
 			hboxes.add(hbox);
 			textfields.add(partynames);
 			secondScreen.getChildren().add(hbox);
@@ -62,7 +70,11 @@ public class setupController {
 		}
 		
 	}
-	/* code resets all the information entered in the textfield when rest button is clicked*/
+	/**
+	 * 
+	 * code resets all the information entered in the textfield when rest button is clicked
+	 */
+	
 	public void resetButtonClicked(ActionEvent event) {
 		numSeats.clear();
 		numPolls.clear();
@@ -73,8 +85,10 @@ public class setupController {
 		for (TextField textfield: textfields) {
 			list.add(textfield.getText());
 		}
+		/**
+		 * updates the Party names in Factory.
+		 */
 		Factory.getInstance().setPartyNames(list.toArray(new String[0] ));
-		System.out.println(Factory.getInstance().getPartyNames());
 	}
 }
 	
