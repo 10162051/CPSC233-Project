@@ -1,3 +1,8 @@
+/**
+ * @author Shaohuan Xia
+ */
+
+
 package application;
 
 import java.net.URL;
@@ -20,8 +25,13 @@ import model.Factory;
 import model.Poll;
 import model.PollList;
 import model.Party;
-
+/** This controller is used to link the view of EditPoll view.
+ * It accepts the input and dispose them to change the attributes of the poll.
+ * Private methods are used.
+ *
+ */
 public class EditPollController {
+	
     private PollList polls;
     
     
@@ -125,19 +135,34 @@ public class EditPollController {
     void ReactToTypingVote(KeyEvent event) {
 
     }
-
+    
+    
+    
+    /**
+     * this method is used to clear the text field.
+     * @param event
+     */
     @FXML
     void ReactToButtonClickClear(ActionEvent event) {
+    	//use .clear() to wipe out the text.
     	ProjectedNumberOfSeatText.clear();
     	ProjectedPercentageOfTheVoteText.clear();
     	UpdatePollNameText.clear();
     }
 
+    
+    
+    
     @FXML
     void ReactToButtonClickParty(ActionEvent event) {
     	setPartyData();
     }
 
+    
+    
+    /**The initialize() is used to setup the initial view of
+     * the GUI, two choice boxes are initialized.
+     */
     @FXML
     void initialize() {
         assert ProjectedNumberOfSeat != null : "fx:id=\"ProjectedNumberOfSeat\" was not injected: check your FXML file 'EditPollView.fxml'.";
@@ -161,18 +186,21 @@ public class EditPollController {
         assert ProjectedPercentageOfTheVoteText != null : "fx:id=\"ProjectedPercentageOfTheVoteText\" was not injected: check your FXML file 'EditPollView.fxml'.";
         assert UpdatePartyButton != null : "fx:id=\"UpdatePartyButton\" was not injected: check your FXML file 'EditPollView.fxml'.";
         assert PartyToUpdate != null : "fx:id=\"PartyToUpdate\" was not injected: check your FXML file 'EditPollView.fxml'.";
+        
+        // use the Factory class to create an instance.
         Factory f = null;
         f = Factory.getInstance();
         polls = f.createEmptyPolls();
         int index = 0;
+        //put the names in the String
         String[] pollsname = new String[polls.getPolls().length];
         for(; index < polls.getPolls().length; index++) {
         	pollsname[index] = polls.getPolls()[index].getPollName();
         }
-        
+        //set dropdown options into the EditChoiceBox.
         EditChoiceBox.setItems(FXCollections.observableArrayList(pollsname));
 
-        
+        //To set the initial parties in choice bnox.
         String[] partiesname = new String[polls.getPolls()[0].getPartiesSortedBySeats().length];
 		int index2 = 0;
         for(; index2 < polls.getPolls()[0].getPartiesSortedBySeats().length; index2++) {
@@ -183,19 +211,29 @@ public class EditPollController {
     }
     
     
+    
+    
+    /**This method is used to change poll data in the choice box so that is can be updated when 
+     * clicking on the update button.
+     */
     private void ChangePollData() {
+    	//get text
     	String pollname = UpdatePollNameText.getText();
+    	// Detecting the change
     	EditChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-    		
+    		//when pressing update button , the corresponding option's name should also be changed.
     		public void changed(ObservableValue va, Number oldvalue, Number newvalue) {
     		    int index = oldvalue.intValue();
     		    if(index >= 0) {
+    		    	//use setPollName() I created in Poll class.
     		    	polls.getPolls()[index].setPollName(pollname);
     		    	int index2 = 0;
     		        String[] pollsname = new String[polls.getPolls().length];
+    		        //put the strings into the array.
     		        for(; index2 < polls.getPolls().length; index2++) {
     		        	pollsname[index2] = polls.getPolls()[index2].getPollName();
     		        }
+    		        //display new options.
     		        EditChoiceBox.setItems(FXCollections.observableArrayList(pollsname));
     		        index2 = 0;
     		    }
@@ -208,18 +246,24 @@ public class EditPollController {
     
     
     
+    
+    /**This method is used to update the parties choice box, when selecting a poll, update the 
+     * corresponding options.
+     */
     private void SwitchParties() {
+    	//Detecting the changes.
         EditChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
     		
     		public void changed(ObservableValue va, Number oldvalue, Number newvalue) {
     			if(newvalue.intValue() >= 0) {
     				int index = newvalue.intValue();
     				int index2 = 0;
+    				// get names.
     				String[] partiesname = new String[polls.getPolls()[index].getPartiesSortedBySeats().length];
         	        for(; index2 < polls.getPolls()[index].getPartiesSortedBySeats().length; index2++) {
         	        	partiesname[index2] = polls.getPolls()[index].getPartiesSortedBySeats()[index2].getName() + "  " + polls.getPolls()[index].getPartiesSortedBySeats()[index2].getProjectedNumberOfSeats() + " Projected Number Of Seats  " + polls.getPolls()[index].getPartiesSortedBySeats()[index2].getProjectedPercentageOfVotes() + "% of votes";
         	        }
-        	        
+        	        //Display the latest options for choice box.
         	        PartyToUpdateChoiceBox.setItems(FXCollections.observableArrayList(partiesname));
         	        index2 = 0;
     			}
@@ -229,7 +273,7 @@ public class EditPollController {
         	        for(; index < polls.getPolls()[0].getPartiesSortedBySeats().length; index++) {
         	        	partiesname[index] = polls.getPolls()[0].getPartiesSortedBySeats()[index].getName() + "  " + polls.getPolls()[0].getPartiesSortedBySeats()[index].getProjectedNumberOfSeats() + " Projected Number Of Seats  " + polls.getPolls()[0].getPartiesSortedBySeats()[index].getProjectedPercentageOfVotes() + "% of votes";
         	        }
-        	        
+        	      //Display the latest options for choice box.
         	        PartyToUpdateChoiceBox.setItems(FXCollections.observableArrayList(partiesname));
 
     			}
@@ -243,16 +287,22 @@ public class EditPollController {
     }
     
     
+    
+    /**This method is used to set the data of a Party and update the information on 
+     * choice box.
+     */
     private void setPartyData() {
     	PartyToUpdateChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-    		
+    		// Detecting if there is any change.
     		public void changed(ObservableValue va, Number oldvalue, Number newvalue) {
     			if(newvalue.intValue() >= 0) {
     				int index = newvalue.intValue();
     				int index2 = 0;
     				String[] partiesname = new String[polls.getPolls()[index].getPartiesSortedBySeats().length];
+    				// set the information from text field into the party.
     				float ProjectedNumberOfSeat = Float.parseFloat(ProjectedNumberOfSeatText.getText());
     				float ProjectedPercentageOfTheVote = Float.parseFloat(ProjectedPercentageOfTheVoteText.getText());
+    				// loop inside the array of party to set data.
     				for(; index2 < polls.getPolls()[index].getPartiesSortedBySeats().length; index2++) {
     					polls.getPolls()[index].getPartiesSortedBySeats()[index2].setProjectedNumberOfSeats(ProjectedNumberOfSeat);
     					polls.getPolls()[index].getPartiesSortedByVotes()[index2].setProjectedPercentageOfVotes(ProjectedPercentageOfTheVote);
@@ -260,7 +310,7 @@ public class EditPollController {
         	        for(; index2 < polls.getPolls()[index].getPartiesSortedBySeats().length; index2++) {
         	        	partiesname[index2] = polls.getPolls()[index].getPartiesSortedBySeats()[index2].getName() + "  " + polls.getPolls()[index].getPartiesSortedBySeats()[index2].getProjectedNumberOfSeats() + " Projected Number Of Seats  " + polls.getPolls()[index].getPartiesSortedBySeats()[index2].getProjectedPercentageOfVotes() + "% of votes";
         	        }
-        	        
+        	        //Display the newest information.
         	        PartyToUpdateChoiceBox.setItems(FXCollections.observableArrayList(partiesname));
         	        index2 = 0;
     			}
