@@ -12,6 +12,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -122,7 +123,7 @@ public class EditPollController {
     
     @FXML
     void ReactToChoiceboxEdit(ActionEvent event) {
-    	SwitchParties();
+    	
     	
     }
     
@@ -200,14 +201,7 @@ public class EditPollController {
         //set dropdown options into the EditChoiceBox.
         EditChoiceBox.setItems(FXCollections.observableArrayList(pollsname));
 
-        //To set the initial parties in choice bnox.
-        String[] partiesname = new String[polls.getPolls()[0].getPartiesSortedBySeats().length];
-		int index2 = 0;
-        for(; index2 < polls.getPolls()[0].getPartiesSortedBySeats().length; index2++) {
-        	partiesname[index2] = polls.getPolls()[0].getPartiesSortedBySeats()[index2].getName() + "  " + polls.getPolls()[0].getPartiesSortedBySeats()[index2].getProjectedNumberOfSeats() + " Projected Number Of Seats  " + polls.getPolls()[0].getPartiesSortedBySeats()[index2].getProjectedPercentageOfVotes() + "% of votes";
-        }
-        
-        PartyToUpdateChoiceBox.setItems(FXCollections.observableArrayList(partiesname));
+        SwitchParties();
     }
     
     
@@ -219,29 +213,20 @@ public class EditPollController {
     private void ChangePollData() {
     	//get text
     	String pollname = UpdatePollNameText.getText();
-    	// Detecting the change
-    	EditChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-    		//when pressing update button , the corresponding option's name should also be changed.
-    		public void changed(ObservableValue va, Number oldvalue, Number newvalue) {
-    		    int index = oldvalue.intValue();
-    		    if(index >= 0) {
-    		    	//use setPollName() I created in Poll class.
-    		    	polls.getPolls()[index].setPollName(pollname);
-    		    	int index2 = 0;
-    		        String[] pollsname = new String[polls.getPolls().length];
-    		        //put the strings into the array.
-    		        for(; index2 < polls.getPolls().length; index2++) {
-    		        	pollsname[index2] = polls.getPolls()[index2].getPollName();
-    		        }
-    		        //display new options.
-    		        EditChoiceBox.setItems(FXCollections.observableArrayList(pollsname));
-    		        index2 = 0;
-    		    }
+    	int index = EditChoiceBox.getSelectionModel().getSelectedIndex();
+
+    	polls.getPolls()[index].setPollName(pollname);
+        int index2 = 0;
+        //put the names in the String
+        String[] pollsname = new String[polls.getPolls().length];
+        for(; index2 < polls.getPolls().length; index2++) {
+        	pollsname[index2] = polls.getPolls()[index2].getPollName();
+        }
+        //set dropdown options into the EditChoiceBox.
+        EditChoiceBox.setItems(FXCollections.observableArrayList(pollsname));
+
     		    
-    		}
-    		    
-    	}
-    	);
+    		
     }
     
     
@@ -292,35 +277,21 @@ public class EditPollController {
      * choice box.
      */
     private void setPartyData() {
-    	PartyToUpdateChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-    		// Detecting if there is any change.
-    		public void changed(ObservableValue va, Number oldvalue, Number newvalue) {
-    			if(newvalue.intValue() >= 0) {
-    				int index = newvalue.intValue();
-    				int index2 = 0;
-    				String[] partiesname = new String[polls.getPolls()[index].getPartiesSortedBySeats().length];
-    				// set the information from text field into the party.
-    				float ProjectedNumberOfSeat = Float.parseFloat(ProjectedNumberOfSeatText.getText());
-    				float ProjectedPercentageOfTheVote = Float.parseFloat(ProjectedPercentageOfTheVoteText.getText());
-    				// loop inside the array of party to set data.
-    				for(; index2 < polls.getPolls()[index].getPartiesSortedBySeats().length; index2++) {
-    					polls.getPolls()[index].getPartiesSortedBySeats()[index2].setProjectedNumberOfSeats(ProjectedNumberOfSeat);
-    					polls.getPolls()[index].getPartiesSortedByVotes()[index2].setProjectedPercentageOfVotes(ProjectedPercentageOfTheVote);
-    				}
-        	        for(; index2 < polls.getPolls()[index].getPartiesSortedBySeats().length; index2++) {
-        	        	partiesname[index2] = polls.getPolls()[index].getPartiesSortedBySeats()[index2].getName() + "  " + polls.getPolls()[index].getPartiesSortedBySeats()[index2].getProjectedNumberOfSeats() + " Projected Number Of Seats  " + polls.getPolls()[index].getPartiesSortedBySeats()[index2].getProjectedPercentageOfVotes() + "% of votes";
-        	        }
-        	        //Display the newest information.
-        	        PartyToUpdateChoiceBox.setItems(FXCollections.observableArrayList(partiesname));
-        	        index2 = 0;
-    			}
-    		    
-    		}
-    		    
-    		
-    		    
-    	}
-    	);
+    	int index = EditChoiceBox.getSelectionModel().getSelectedIndex();
+    	int index2 = PartyToUpdateChoiceBox.getSelectionModel().getSelectedIndex();
+    	float ProjectedNumberOfSeats = Float.parseFloat(ProjectedNumberOfSeatText.getText());
+    	float ProjectedPercentageOfVotes = Float.parseFloat(ProjectedPercentageOfTheVoteText.getText());
+    	polls.getPolls()[index].getPartiesSortedBySeats()[index2].setProjectedNumberOfSeats(ProjectedNumberOfSeats);
+    	polls.getPolls()[index].getPartiesSortedBySeats()[index2].setProjectedPercentageOfVotes(ProjectedPercentageOfVotes/100);
+    	String[] partiesname = new String[polls.getPolls()[index].getPartiesSortedBySeats().length];
+		int index3 = 0;
+        for(; index3 < polls.getPolls()[0].getPartiesSortedBySeats().length; index3++) {
+        	partiesname[index3] = polls.getPolls()[0].getPartiesSortedBySeats()[index3].getName() + "  " + polls.getPolls()[index].getPartiesSortedBySeats()[index3].getProjectedNumberOfSeats() + " Projected Number Of Seats  " + polls.getPolls()[index].getPartiesSortedBySeats()[index3].getProjectedPercentageOfVotes() + "% of votes";
+        }
+        
+        PartyToUpdateChoiceBox.setItems(FXCollections.observableArrayList(partiesname));
+    	
+    	
     }
 }
 
