@@ -1,14 +1,10 @@
-package application
+package application;
 import model.*;
 /**
  * @author Shaohuan Xia
  * @author Hima Rajesh
  * @author Carlene Kalin
  */
-
-
-
-
 
 
 import java.util.ArrayList;
@@ -130,6 +126,3 @@ public class TextApplication {
 		app.run();
 	}
 }
-
-
-    
