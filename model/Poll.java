@@ -9,7 +9,7 @@ import java.util.Collections;
  *
  */
 
-public class Poll {
+public class Poll  {
 	private String name = "Unnamed Poll";
 	private Party[] parties;
 	private int numberOfParties;
@@ -102,38 +102,38 @@ public class Poll {
 	//static method Array.sort provided by Java. To ensure it sorts the Parties by seat, you will have 
 	//to provide as an argument a Comparator that compares Parties by number of projected seats
 	public Party[] getPartiesSortedBySeats() {
-		ArrayList<String> parties = new ArrayList<String>();
-		for (int i = 0; i < parties.size(); i++)
-			parties.get(numberOfParties);
-			Collections.sort(parties, Collections.reverseOrder());
-			return this.parties;
+		//Party sortedSeats = new Party[];
+		//Collections.sort(sortedSeats,Collections.reverseOrder());
+		//return sortedSeats;
+		return parties;
 	}
 
 	
 	//getPartiesSortedByVote is like the previous method but the list of parties returned is sorted by 
 	//projected percentage of votes with the party with the most votes first in the list
 	public Party[] getPartiesSortedByVotes() {
-		Arrays.sort(parties, Collections.reverseOrder());
 		return parties;
 	}
 	
-	//  toString which does not take any arguments and returns something of type String. The string 
+	//toString which does not take any arguments and returns something of type String. The string 
 	//returned should have multiple lines. The first line is the name of the poll. This is followed by 
 	//one line per party in the poll which contains the string representation of the party (retrieved by 
 	//called toString on each party).
-	//Note that anything between the angle brackets (<>) describes information that should be placed 
-	//there. Everything else is the literal character that should be placed there.
 	@Override
 	public String toString() {
-		return String.format( name + ".%n " + parties + ".%n ");
-					//â€˜<name> <newline> 
+		int i = 0;
+		if (i <= parties.length)
+			return String.format( name + ".%n ","/n");
+		else 
+			return "abc";
+					//<name> <newline> 
 				   //<string representation of first party> <newline>
-				   //<string representation of second party><newline>...â€™
+				   //<string representation of second party><newline>...
 	}
 }
 
 //Recall that the creation of an array of objects will fill the array with null values. When looping through 
 //the array of Party objects, make sure you check if the party is null or not. Make sure to handle null 
-//values appropriately. Sometimes a null value means â€˜do nothingâ€™. Other times it means an error. If an 
+//values appropriately. Sometimes a null value means do nothing. Other times it means an error. If an 
 //error is encountered, print an error message. Do NOT end the program. Instead allow the program to 
 //continue running as if no error had occurred. A later iteration will manage errors better
