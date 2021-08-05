@@ -1,3 +1,7 @@
+/**
+ * @author Shaohuan Xia
+ */
+
 package application;
 	
 import java.io.FileInputStream;
