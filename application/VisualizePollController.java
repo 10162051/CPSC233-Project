@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import model.Poll;
 import model.PollList;
 import model.Factory;
+import model.Party;
 
 public class VisualizePollController {
 	//Instance Variable
@@ -51,6 +52,8 @@ public class VisualizePollController {
     @FXML
     private Button displayResultsButton;
 
+	private PieChart percentVotesPieChart;
+
     @FXML
     void initialize() {
     	this.setPolls(Factory.getInstance().createRandomPollList());
@@ -60,7 +63,6 @@ public class VisualizePollController {
         assert projectedPercentVotesLabel != null : "fx:id=\"projectedPercentVotesLabel\" was not injected: check your FXML file 'Assignment2.fxml'.";
         assert seatsPieChart != null : "fx:id=\"seatsPieChart\" was not injected: check your FXML file 'Assignment2.fxml'.";
         assert precentVotesPieChart != null : "fx:id=\"precentVotesPieChart\" was not injected: check your FXML file 'Assignment2.fxml'.";
-        
         //ChoiceBox
         ObservableList<Poll> selectPollList;
         pollButton.setItems(FXCollections.observableArrayList(this.polls.getPolls()));
@@ -69,6 +71,7 @@ public class VisualizePollController {
         	        @Override
         	        public void changed(ObservableValue observable, Number oldValue, Number newValue) {
         	            int value = newValue.intValue();
+        	            setPieChartData(polls.getPolls()[newValue.intValue()]);
         	        }
         	    }
         	);
@@ -79,21 +82,21 @@ public class VisualizePollController {
     	//of the PieCharts that you have.
     	// It should take the data within the Poll instance and use the votes and seats to set that data.
     	ObservableList<Poll> pieChartPoll;
-    	
+    	int numberofParties = Factory.getInstance().getPartyNames().length; //number of parties
+    	PieChart.Data[] data = new PieChart.Data[numberofParties];
+    	PieChart.Data[] dataVotes = new PieChart.Data[numberofParties];
+    	Party[] sortedBySeats = aPoll.getPartiesSortedBySeats();
+    	Party[] sortedByVotes = aPoll.getPartiesSortedByVotes();
+    	// make this a loop instead. Based on the size of sortedSeats
+    	int i = 0;
+    	for (i = 0; i < data.length; i++) {
+    		data[i] = new PieChart.Data(sortedBySeats[i].getName(), sortedBySeats[i].getProjectedNumberOfSeats());
+    		dataVotes[i] = new PieChart.Data(sortedByVotes[i].getName(), sortedByVotes[i].getProjectedPercentageOfVotes());
+    	}
+    	seatsPieChart.setData(FXCollections.observableArrayList(data)); 
+    	precentVotesPieChart.setData(FXCollections.observableArrayList(dataVotes)); 
     }
 }
-
-
-//List.  At start-up, get a random PollList from the Factory.  (Get the instance of Factory by calling Factory.getInstance().  
-//Then call the method createRandomPollList()to get a random poll list that you can work with.
-
-// Random rand = new Random(); RANDOM NUM GNERATOR
-//myLabel.setText(myTextField.getText()); displays what you type in the textField as a label
-//Do this under a button/selecty thing to make the pie chart work:
-//PieChart.Data[] data = new PieChart.Data[5]; THE FIVE IS HOW MANY ITEMS IN THE ARRAY. CAN BE ANY NUM
-// data[0] = new PieChart.Data("label here", rand.nextInt(101)); RAND.NEXTINT GENERATES RANDOM NUMBER FROM RANDOM RAND
-//Need 5 data[num] if we do it this way.
-//PieChart.setData(FXCollections.observableArrayList(data));
 //ChoiceBox.setItems(FX.Collection.observableArrayList(values));
 //ChoiceBox.getSelectModel().selectedIndexProperty().addListener(listener
 //	 new ChangeListener<Number>(){
