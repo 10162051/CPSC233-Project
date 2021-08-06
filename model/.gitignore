@@ -1,5 +1,4 @@
 /Factory.class
-/FactoryTest.class
 /Party.class
 /PartyTest.class
 /Poll.class
@@ -9,6 +8,3 @@
 /PollListTest.class
 /PollTest$MockParty.class
 /PollTest.class
-/TextApplication.class
-/module-info.class
-/bin/
