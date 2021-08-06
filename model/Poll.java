@@ -68,10 +68,7 @@ public class Poll  {
 		return numberOfParties;
 	}
 	
-	//Added setter to use in Controller
-	public void setPollName(String PollName) {
-		this.name = PollName;
-	}
+
 	
 	//getParty which takes the name of the party to find and returns the party in the poll with that 
 	//name. If no party of that name exists in the poll this method should return null.
