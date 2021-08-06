@@ -56,7 +56,7 @@ public class VisualizePollController {
 
     @FXML
     void initialize() {
-    	this.setPolls(Factory.getInstance().createRandomPollList());
+    	this.setPolls(Factory.getInstance().createEmptyPolls());
     	assert pollButton != null : "fx:id=\"pollButton\" was not injected: check your FXML file 'Assignment2.fxml'.";
         assert selectPollLabel != null : "fx:id=\"selectPollLabel\" was not injected: check your FXML file 'Assignment2.fxml'.";
         assert projectedSeatsLabel != null : "fx:id=\"projectedSeatsLabel\" was not injected: check your FXML file 'Assignment2.fxml'.";
@@ -72,9 +72,11 @@ public class VisualizePollController {
         	        public void changed(ObservableValue observable, Number oldValue, Number newValue) {
         	            int value = newValue.intValue();
         	            setPieChartData(polls.getPolls()[newValue.intValue()]);
+        	            pollButton.setItems(FXCollections.observableArrayList(polls.getPolls()));
         	        }
         	    }
         	);
+        
     }
     
     private void setPieChartData(Poll aPoll) {
