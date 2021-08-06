@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="541.0" prefWidth="808.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VisualizePollController">
+   <children>
+      <ChoiceBox fx:id="pollButton" layoutX="319.0" layoutY="37.0" prefWidth="150.0" />
+      <Label fx:id="selectPollLabel" layoutX="345.0" layoutY="18.0" prefHeight="18.0" prefWidth="97.0" text="Select Poll" />
+      <Label fx:id="projectedSeatsLabel" layoutX="125.0" layoutY="75.0" text="Projected Seats" />
+      <Label fx:id="projectedPercentVotesLabel" layoutX="552.0" layoutY="75.0" text="Projected Percent of Votes " />
+      <PieChart fx:id="seatsPieChart" layoutX="27.0" layoutY="108.0" prefHeight="286.0" prefWidth="358.0" />
+      <PieChart fx:id="precentVotesPieChart" layoutX="423.0" layoutY="108.0" prefHeight="286.0" prefWidth="358.0" />
+   </children>
+</AnchorPane>
