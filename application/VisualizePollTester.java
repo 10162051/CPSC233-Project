@@ -15,7 +15,7 @@ public class VisualizePollTester extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			AnchorPane root = loader.load(new FileInputStream("view/Assignment2.fxml"));
+			AnchorPane root = loader.load(new FileInputStream("view/VisualizePollView.fxml"));
 			Scene scene = new Scene(root,400,400);
 			primaryStage.setScene(scene);
 			primaryStage.show();

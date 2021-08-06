@@ -14,8 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import model.Factory;
 
-public class setupController {
-
+public class SetupController {
+    private PollTrackerApp App;
 	@FXML
 	public TextField numSeats;
 	@FXML
@@ -89,6 +89,12 @@ public class setupController {
 		 * updates the Party names in Factory.
 		 */
 		Factory.getInstance().setPartyNames(list.toArray(new String[0] ));
+		App.pollView();
+	}
+	
+	public PollTrackerApp linkWithApplication(PollTrackerApp App) {
+		this.App = App;
+		return App;
 	}
 }
 	

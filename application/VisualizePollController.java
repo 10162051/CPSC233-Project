@@ -94,7 +94,7 @@ public class VisualizePollController {
     		dataVotes[i] = new PieChart.Data(sortedByVotes[i].getName(), sortedByVotes[i].getProjectedPercentageOfVotes());
     	}
     	seatsPieChart.setData(FXCollections.observableArrayList(data)); 
-    	precentVotesPieChart.setData(FXCollections.observableArrayList(dataVotes)); 
+    	precentVotesPieChart.setData(FXCollections.observableArrayList(dataVotes));
     }
 }
 //ChoiceBox.setItems(FX.Collection.observableArrayList(values));
