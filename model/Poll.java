@@ -12,22 +12,18 @@ import java.util.Collections;
 public class Poll  {
 	private String name = "Unnamed Poll";
 	private Party[] parties;
-	private int numberOfParties;
+	private int numberOfParties = 0;
 	
 	//Create one constructor for the class that takes the name of the poll and the maximum number of 
 	//Parties this poll will take as an argument. The maximum number of parties should be at least 1. If an 
 	//invalid number is provided, set the maximum number of parties this poll can contain to 10
-	public Poll(String name, int numberOfParties) {
+	public Poll(String name, int maxnumberOfParties) {
 		this.name = name;
-		if(numberOfParties < 1)
-			this.numberOfParties = 10;
-		else 
-			this.numberOfParties = numberOfParties;
-		this.parties = new Party[this.numberOfParties];
+		if(maxnumberOfParties < 1) 
+			maxnumberOfParties = 10;
+		this.parties = new Party[maxnumberOfParties];
 	}
-	public Poll() {
-	}
-	
+
 
 	// addParty which does not return anything and takes an object of type Party as an argument. If 
 	//the argument is null, print an error message. Parties are uniquely identified by their name. Only 
@@ -54,6 +50,7 @@ public class Poll  {
 		    	for (index = 0; index < parties.length; index++) {
 		    		if(parties[index] == null) {
 		    			parties[index] = aParty;
+		    			numberOfParties ++;
 		    			break;
 		    		}
 		    	}
@@ -78,8 +75,6 @@ public class Poll  {
 	
 	//getParty which takes the name of the party to find and returns the party in the poll with that 
 	//name. If no party of that name exists in the poll this method should return null.
-	//?parties[i].getName()==nameParty
-	//?return parties[i].getName()
 	/**
 	 * 
 	 * @author This method is edited by Shaohuan Xia
@@ -88,7 +83,7 @@ public class Poll  {
 	public Party getParty(String name) {
 		Party TheParty = new Party("default");
         for(Party party:parties) {
-        	if(party.getName() == name) {
+        	if(party != null && party.getName().equals(name)) {
         		TheParty = party;
         	}
         }
